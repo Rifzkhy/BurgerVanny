@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+    *{
+     font-family: 'Poppins', sans-serif;
+     margin:0; padding:0;
+     box-sizing: border-box;
+     outline: none; border:none;
+     text-decoration: none;
+     transition: all .2s linear;
+     text-transform: capitalize;
+   }
+
+   html{
+     font-size: 62.5%;
+     overflow-x: hidden;
+   }
+
+   body{
+     background: #eee;
+     min-height: 100vh;
+   }
+
+   marquee{
+    font-size: 2em;
+    padding: 0.2em;
+    background-color: orange;
+    color: #fff;
+   }
+
+   .container{
+     max-width: 1200px;
+     margin:0 auto;
+     padding:3rem 2rem;
+   }
+
+   .container .title{
+     font-size: 3.5rem;
+     color:#27ae60;
+     margin-bottom: 3rem;
+     text-transform: uppercase;
+     text-align: center;
+   }
+
+   .container .products-container{
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(25rem, 2fr));
+     gap: 1.5rem;
+   }
+
+   .container .products-container .product{
+     text-align: center;
+     padding:5rem 2rem;
+     background: #fff;
+     box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+     outline: .3rem solid black;
+     outline-offset: -1.5rem;
+     cursor: pointer;
+   }
+
+   .container .products-container .product:hover{
+     outline: .5rem solid orange;
+     outline-offset: 0;
+   }
+
+   .container .products-container .product img{
+     height: 20rem;
+   }
+
+   .container .products-container .product:hover img{
+     transform: scale(.9);
+   }
+
+   .container .products-container .product h3{
+     padding:.5rem 0;
+     font-size: 2rem;
+     color:#444;
+   }
+
+   .container .products-container .product:hover h3{
+     color:orange;
+   }
+
+   .container .products-container .product .price{
+     font-size: 2rem;
+     color:#444;
+   }
+
+   .products-preview{
+     position: fixed;
+     top:0; left:0;
+     min-height: 100vh;
+     width: 100%;
+     background: rgba(0,0,0,.8);
+     display: none;
+     align-items: center;
+     justify-content: center;
+   }
+
+   .products-preview .preview{
+     display: none;
+     padding:2rem;
+     text-align: center;
+     background: #fff;
+     position: relative;
+     margin:2rem;
+     width: 40rem;
+     outline: .5rem solid orange;
+   }
+
+   .products-preview .preview.active{
+     display: inline-block;
+   }
+
+   .products-preview .preview img{
+     height: 30rem;
+   }
+
+   .products-preview .preview .fa-times{
+     position: absolute;
+     top:1rem; right:1.5rem;
+     cursor: pointer;
+     color:orange;
+     font-size: 4rem;
+   }
+
+   .products-preview .preview .fa-times:hover{
+     transform: rotate(90deg);
+   }
+
+   .fa-times{
+     top:1rem; right:1.5rem;
+     cursor: pointer;
+     color: orange;
+     font-size: 4rem;
+   }
+
+   .fa-times:hover{
+     transform: rotate(90deg);
+   }
+
+   .products-preview .preview h3{
+     color:#444;
+     padding:.5rem 0;
+     font-size: 2.5rem;
+   }
+
+   .products-preview .preview p{
+     line-height: 1.5;
+     padding:1rem 0;
+     font-size: 1.6rem;
+     color:#777;
+   }
+
+   .products-preview .preview .price{
+     padding:1rem 0;
+     font-size: 2.5rem;
+     color: orange;
+   }
+
+   nav{
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     height: 70px;
+     background: #27ae60;
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+     z-index: 99;
+   }
+   nav .navbar{
+     height: 100%;
+     max-width: 1250px;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     margin: auto;
+     padding: 0 50px;
+   }
+   .navbar .logo a{
+     font-size: 30px;
+     color: #fff;
+     text-decoration: none;
+     font-weight: 600;
+   }
+   nav .navbar .nav-links{
+     line-height: 70px;
+     height: 100%;
+   }
+   nav .navbar .links{
+     display: flex;
+   }
+   nav .navbar .links li{
+     position: relative;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     list-style: none;
+     padding: 0 14px;
+   }
+   nav .navbar .links li a{
+     height: 100%;
+     text-decoration: none;
+     white-space: nowrap;
+     color: #fff;
+     font-size: 15px;
+     font-weight: 500;
+   }
+   .links li:hover .htmlcss-arrow,
+   .links li:hover .js-arrow{
+     transform: rotate(180deg);
+   }
+
+   nav .navbar .links li .arrow{
+     height: 100%;
+     width: 22px;
+     line-height: 70px;
+     text-align: center;
+     display: inline-block;
+     color: #fff;
+     transition: all 0.3s ease;
+   }
+   nav .navbar .links li .sub-menu{
+     position: absolute;
+     top: 70px;
+     left: 0;
+     line-height: 40px;
+     background: #27ae60;
+     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+     border-radius: 0 0 4px 4px;
+     display: none;
+     z-index: 2;
+   }
+   nav .navbar .links li:hover .htmlCss-sub-menu,
+   nav .navbar .links li:hover .js-sub-menu{
+     display: block;
+   }
+   .navbar .links li .sub-menu li{
+     padding: 0 22px;
+     border-bottom: 1px solid rgba(255,255,255,0.1);
+   }
+   .navbar .links li .sub-menu a{
+     color: #fff;
+     font-size: 15px;
+     font-weight: 500;
+   }
+   .navbar .links li .sub-menu .more-arrow{
+     line-height: 40px;
+   }
+
+   .navbar .links li .sub-menu .more-sub-menu{
+     position: absolute;
+     top: 0;
+     left: 100%;
+     border-radius: 0 4px 4px 4px;
+     z-index: 1;
+     display: none;
+   }
+   .links li .sub-menu .more:hover .more-sub-menu{
+     display: block;
+   }
+
+   .navbar .nav-links .sidebar-logo{
+     display: none;
+     font-weight: 600;
+   }
+   .navbar .bx-menu{
+     display: none;
+   }
+   @media (max-width:920px) {
+     nav .navbar{
+      max-width: 100%;
+      padding: 0 25px;
+    }
+
+    nav .navbar .logo a{
+      font-size: 27px;
+    }
+    nav .navbar .links li{
+      padding: 0 10px;
+      white-space: nowrap;
+    }
+    nav .navbar .links li a{
+      font-size: 15px;
+    }
+  }
+  @media (max-width:800px){
+
+  .navbar .bx-menu{
+    display: block;
+  }
+  nav .navbar .nav-links{
+    position: fixed;
+    top: 0;
+    left: -100%;
+    display: block;
+    max-width: 270px;
+    width: 100%;
+    background:  #27ae60;
+    line-height: 40px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    z-index: 1000;
+  }
+  .navbar .nav-links .sidebar-logo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidebar-logo .logo-name{
+    font-size: 25px;
+    color: #fff;
+  }
+  .sidebar-logo  i,
+  .navbar .bx-menu{
+    font-size: 25px;
+    color: #fff;
+  }
+  nav .navbar .links{
+    display: block;
+    margin-top: 20px;
+  }
+  nav .navbar .links li .arrow{
+    line-height: 40px;
+  }
+  nav .navbar .links li{
+    display: block;
+  }
+  nav .navbar .links li .sub-menu{
+    position: relative;
+    top: 0;
+    box-shadow: none;
+    display: none;
+  }
+  nav .navbar .links li .sub-menu li{
+    border-bottom: none;
+
+  }
+  .navbar .links li .sub-menu .more-sub-menu{
+    display: none;
+    position: relative;
+    left: 0;
+  }
+  .navbar .links li .sub-menu .more-sub-menu li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .links li:hover .htmlcss-arrow,
+  .links li:hover .js-arrow{
+    transform: rotate(0deg);
+  }
+  .navbar .links li .sub-menu .more-sub-menu{
+    display: none;
+  }
+  .navbar .links li .sub-menu .more span{
+    display: flex;
+    align-items: center;
+  }
+
+  .links li .sub-menu .more:hover .more-sub-menu{
+    display: none;
+  }
+  nav .navbar .links li:hover .htmlCss-sub-menu,
+  nav .navbar .links li:hover .js-sub-menu{
+    display: none;
+  }
+  .navbar .nav-links.show1 .links .htmlCss-sub-menu,
+  .navbar .nav-links.show3 .links .js-sub-menu,
+  .navbar .nav-links.show2 .links .more .more-sub-menu{
+    display: block;
+  }
+  .navbar .nav-links.show1 .links .htmlcss-arrow,
+  .navbar .nav-links.show3 .links .js-arrow{
+    transform: rotate(180deg);
+  }
+  .navbar .nav-links.show2 .links .more-arrow{
+    transform: rotate(90deg);
+  }
+}
+@media (max-width:370px){
+ nav .navbar .nav-links{
+  max-width: 100%;
+} 
+}
+@media (max-width:991px){
+
+ html{
+  font-size: 55%;
+}
+
+}
+
+@media (max-width:768px){
+
+ .products-preview .preview img{
+  height: 32.5rem;
+}
+
+}
+
+@media (max-width:450px){
+
+ html{
+  font-size: 50%;
+}
+
+}
+</style>
+<link rel="icon" type="image/png" href="foto/logo.png">
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burger Vanny</title>
+</head>
+<body>
+  <header>
+    <br><br><br><br><br><br><br><br>
+    <nav>
+      <div class="navbar">
+        <i class='bx bx-menu'></i>
+        <div class="logo"><a>Burger Vanny</a></div>
+        <div class="nav-links">
+          <div class="sidebar-logo" data-target="p-1">
+            <span class="logo-name">Burger Vanny</span>
+            <i class="fas fa-times"></i>
+          </div>
+          <ul class="links">
+            <li>
+              <a>MAKANAN</a>
+              <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
+              <ul class="htmlCss-sub-menu sub-menu">
+                <li><a href="#burger">BURGER</a></li>
+                <li><a href="#rotibakar">ROTI BAKAR</a></li>
+              </ul>
+            </li>
+            <li><a href="#minuman">MINUMAN</a></li>
+            <li><a href="#tentang">TENTANG</a></li>
+            <li><a href="#peta">PETA</a></li>
+          </ul>
+        </div>
+      </div>
+      <marquee>Buka setiap hari dari jam 9 pagi sampai 8 malam</marquee>
+    </nav>
+  </header>
+
+  <div class="container">
+
+   <h3 class="title" id="burger">BURGER</h3>
+
+   <div class="products-container">
+
+    <div class="product" data-name="p-1">
+     <img src="foto/1.png" alt="">
+     <h3>KOMPLIT</h3>
+     <div class="price">Rp 10.000</div>
+   </div>
+
+   <div class="product" data-name="p-2">
+     <img src="foto/2.png" alt="">
+     <h3>JUMBO</h3>
+     <div class="price">Rp 8.000</div>
+   </div>
+
+   <div class="product" data-name="p-3">
+     <img src="foto/3.png" alt="">
+     <h3>STANDAR</h3>
+     <div class="price">Rp 5.000</div>
+   </div>
+
+   <div class="product" data-name="p-4">
+     <img src="foto/4.png" alt="">
+     <h3>MINI</h3>
+     <div class="price">Rp 3.000</div>
+   </div>
+
+ </div>
+
+</div>
+
+<div class="products-preview">
+
+ <div class="preview" data-target="p-1">
+  <i class="fas fa-times"></i>
+  <img src="foto/1.png" alt="">
+  <h3>Burger Komplit</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 10.000</div>
+</div>
+
+<div class="preview" data-target="p-2">
+  <i class="fas fa-times"></i>
+  <img src="foto/2.png" alt="">
+  <h3>Burger Jumbo</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 8.000</div>
+</div>
+
+<div class="preview" data-target="p-3">
+  <i class="fas fa-times"></i>
+  <img src="foto/3.png" alt="">
+  <h3>Burger Standar</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 5.000</div>
+</div>
+
+<div class="preview" data-target="p-4">
+  <i class="fas fa-times"></i>
+  <img src="foto/4.png" alt="">
+  <h3>Burger Mini</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 3.000</div>
+</div>
+
+</div>
+
+<div class="container">
+
+ <h3 class="title" id="rotibakar">ROTI BAKAR</h3>
+
+ <div class="products-container">
+
+  <div class="product" data-name="p-1">
+   <img src="foto/11.png" alt="">
+   <h3>NANAS</h3>
+   <div class="price">Rp 3.000</div>
+ </div>
+
+ <div class="product" data-name="p-2">
+   <img src="foto/12.png" alt="">
+   <h3>STROBERI</h3>
+   <div class="price">Rp 3.000</div>
+ </div>
+
+ <div class="product" data-name="p-3">
+   <img src="foto/13.png" alt="">
+   <h3>COKLAT</h3>
+   <div class="price">Rp 3.000</div>
+ </div>
+
+ <div class="product" data-name="p-4">
+   <img src="foto/14.png" alt="">
+   <h3>SUSU + KEJU</h3>
+   <div class="price">Rp 4.000</div>
+ </div>
+
+ <div class="product" data-name="p-5">
+   <img src="foto/15.png" alt="">
+   <h3>SUSU + MESES</h3>
+   <div class="price">Rp 4.000</div>
+ </div>
+
+</div>
+
+</div>
+
+<div class="products-preview">
+
+ <div class="preview" data-target="p-1">
+  <i class="fas fa-times"></i>
+  <img src="foto/11.png" alt="">
+  <h3>NANAS</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 3.000</div>
+</div>
+
+<div class="preview" data-target="p-2">
+  <i class="fas fa-times"></i>
+  <img src="foto/12.png" alt="">
+  <h3>STROBERI</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 3.000</div>
+</div>
+
+<div class="preview" data-target="p-3">
+  <i class="fas fa-times"></i>
+  <img src="foto/13.png" alt="">
+  <h3>COKLAT</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 3.0000</div>
+</div>
+
+<div class="preview" data-target="p-4">
+  <i class="fas fa-times"></i>
+  <img src="foto/14.png" alt="">
+  <h3>SUSU + KEJU</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 4.000</div>
+</div>
+
+<div class="preview" data-target="p-5">
+  <i class="fas fa-times"></i>
+  <img src="foto/15.png" alt="">
+  <h3>SUSU + MESES</h3>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, dolorem.</p>
+  <div class="price">Rp 4.000</div>
+</div>
+
+</div>
+
+</body>
+<script type="text/javascript">
+  let preveiwContainer = document.querySelector('.products-preview');
+  let previewBox = preveiwContainer.querySelectorAll('.preview');
+
+  document.querySelectorAll('.products-container .product').forEach(product =>{
+    product.onclick = () =>{
+      preveiwContainer.style.display = 'flex';
+      let name = product.getAttribute('data-name');
+      previewBox.forEach(preview =>{
+        let target = preview.getAttribute('data-target');
+        if(name == target){
+          preview.classList.add('active');
+        }
+      });
+    };
+  });
+
+  previewBox.forEach(close =>{
+    close.querySelector('.fa-times').onclick = () =>{
+      close.classList.remove('active');
+      preveiwContainer.style.display = 'none';
+    };
+  });
+  let navLinks = document.querySelector(".nav-links");
+  let menuOpenBtn = document.querySelector(".navbar .bx-menu");
+  let menuCloseBtn = document.querySelector(".nav-links .fa-times");
+  menuOpenBtn.onclick = function() {
+    navLinks.style.left = "0";
+  }
+  menuCloseBtn.onclick = function() {
+    navLinks.style.left = "-100%";
+  }
+
+  let htmlcssArrow = document.querySelector(".htmlcss-arrow");
+  htmlcssArrow.onclick = function() {
+   navLinks.classList.toggle("show1");
+ }
+ let moreArrow = document.querySelector(".more-arrow");
+ moreArrow.onclick = function() {
+   navLinks.classList.toggle("show2");
+ }
+ let jsArrow = document.querySelector(".js-arrow");
+ jsArrow.onclick = function() {
+   navLinks.classList.toggle("show3");
+ }
+</script>
+</html>
