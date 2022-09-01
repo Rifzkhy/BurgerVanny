@@ -23,7 +23,8 @@
 
    body{
      background: #eee;
-     min-height: 100vh;
+  min-height: 100vh;
+  width: 100%;
    }
 
    marquee{
@@ -41,7 +42,7 @@
 
    .container .title{
      font-size: 3.5rem;
-     color:#27ae60;
+     color:#444;
      margin-bottom: 3rem;
      text-transform: uppercase;
      text-align: center;
@@ -58,13 +59,15 @@
      padding:5rem 2rem;
      background: #fff;
      box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
-     outline: .3rem solid black;
-     outline-offset: -1.5rem;
+     outline: .3rem solid #27ae60;
+     outline-offset: -2rem;
      cursor: pointer;
+     border-radius: 1em;
    }
 
    .container .products-container .product:hover{
      outline: .5rem solid orange;
+     border-radius: 1em;
      outline-offset: 0;
    }
 
@@ -111,6 +114,7 @@
      margin:2rem;
      width: 40rem;
      outline: .5rem solid orange;
+     border-radius: 1em;
    }
 
    .products-preview .preview.active{
@@ -386,6 +390,142 @@
     transform: rotate(90deg);
   }
 }
+
+footer{
+  position: fixed;
+  background: #27AE60;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+footer .content{
+  max-width: 1250px;
+  margin: auto;
+  padding: 30px 40px 0 40px;
+}
+footer .content .top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.content .top .logo-details{
+  color: #fff;
+  font-size: 30px;
+}
+
+footer .bottom-details{
+  width: 100%;
+  background: orange;
+}
+footer .bottom-details .bottom_text{
+  max-width: 1250px;
+  margin: auto;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.bottom-details .bottom_text span,
+.bottom-details .bottom_text a{
+  font-size: 14px;
+  font-weight: 300;
+  color: #fff;
+  opacity: 0.8;
+  text-decoration: none;
+}
+.bottom-details .bottom_text a:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+.bottom-details .bottom_text a{
+  margin-right: 10px;
+}
+footer{
+  position: relative;
+  background: #27AE60;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+footer .content{
+  max-width: 1250px;
+  margin: auto;
+  padding: 10px 40px 0px 40px;
+}
+footer .content .top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.content .top .logo-details{
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+footer .bottom-details{
+  width: 100%;
+  background: #fff;
+}
+footer .bottom-details .bottom_text{
+  max-width: 1250px;
+  margin: auto;
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+}
+.bottom-details .bottom_text span,
+.bottom-details .bottom_text a{
+  font-size: 14px;
+  font-weight: 300;
+  color: black;
+  opacity: 0.8;
+  text-decoration: none;
+}
+.bottom-details .bottom_text a:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+.bottom-details .bottom_text a{
+  margin-right: 10px;
+}
+@media (max-width: 900px) {
+  footer .content .link-boxes{
+    flex-wrap: wrap;
+  }
+  footer .content .link-boxes .input-box{
+    width: 40%;
+    margin-top: 10px;
+  }
+}
+@media (max-width: 700px){
+  footer{
+    position: relative;
+  }
+  footer .content .link-boxes .input-box{
+    width: 60%;
+  }
+  .bottom-details .bottom_text span,
+  .bottom-details .bottom_text a{
+    font-size: 12px;
+  }
+}
+@media (max-width: 520px){
+  footer::before{
+    top: 145px;
+  }
+  footer .content .top{
+    flex-direction: column;
+  }
+  footer .content .link-boxes .box{
+    width: calc(100% / 2 - 10px);
+  }
+  footer .content .link-boxes .input-box{
+    width: 100%;
+  }
+}
+
 @media (max-width:370px){
  nav .navbar .nav-links{
   max-width: 100%;
@@ -423,7 +563,7 @@
 </head>
 <body>
   <header>
-    <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br>
     <nav>
       <div class="navbar">
         <i class='bx bx-menu'></i>
@@ -454,7 +594,7 @@
 
   <div class="container">
 
-   <h3 class="title" id="burger">BURGER</h3>
+   <h3 class="title" id="burger">- BURGER -</h3>
 
    <div class="products-container">
 
@@ -524,7 +664,7 @@
 
 <div class="container">
 
- <h3 class="title" id="rotibakar">ROTI BAKAR</h3>
+ <h3 class="title" id="rotibakar">- ROTI BAKAR -</h3>
 
  <div class="products-container">
 
@@ -605,6 +745,24 @@
 </div>
 
 </div>
+
+<footer>
+  <div class="content">
+    <div class="top">
+      <div class="logo-details">
+        <span class="logo_name">Burger Vanny</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-details">
+    <div class="bottom_text">
+      <span class="copyright_text">Copyright &#169; 2022 <a>Burger Vanny</a>All rights reserved</span>
+      <span class="policy_terms">
+        <a href="https://www.instagram.com/rifzkhy/">Created by Rifzkhy</a>
+      </span>
+    </div>
+  </div>
+</footer>
 
 </body>
 <script type="text/javascript">
